@@ -36,7 +36,7 @@ while getopts "x:o:r:t:h" opt; do
       repos="${OPTARG}"; IFS=';' read -ra repos <<< "${repos}"
       ;;
     t)
-      topics="${OPTARG}"; IFS=';' read -ra topics <<< "${topic}"
+      topics="${OPTARG}"; IFS=';' read -ra topics <<< "${topics}"
       ;;
     h|*)
       echo "${help}"
