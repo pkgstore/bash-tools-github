@@ -12,15 +12,15 @@ sleep="2"
 # Help.
 read -r -d '' help <<- EOF
 Options:
-  -x 'TOKEN'                              GitHub user token.
-  -o 'OWNER'                              Repository owner (organization).
-  -r 'REPO_1;REPO_2;REPO_3'               Repository name array.
-  -d 'DESCRIPTION'                        Repository description.
-  -s 'https://example.org/'               Repository site URL.
-  -p                                      Is private repository.
-  -i                                      Has issues.
-  -j                                      Has projects.
-  -w                                      Has WIKI.
+  -x 'TOKEN'                            GitHub user token.
+  -o 'OWNER'                            Repository owner (organization).
+  -r 'REPO_1;REPO_2;REPO_3'             Repository name array.
+  -d 'DESCRIPTION'                      Repository description.
+  -s 'https://example.org/'             Repository site URL.
+  -p                                    Is private repository.
+  -i                                    Has issues.
+  -j                                    Has projects.
+  -w                                    Has WIKI.
 EOF
 
 # -------------------------------------------------------------------------------------------------------------------- #

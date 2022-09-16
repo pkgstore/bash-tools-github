@@ -12,10 +12,10 @@ sleep="2"
 # Help.
 read -r -d '' help <<- EOF
 Options:
-  -x 'TOKEN'                              GitHub user token.
-  -o 'OWNER'                              Repository owner (organization).
-  -r 'REPO_1;REPO_2;REPO_3'               Repository name array.
-  -t 'TOPIC_1;TOPIC_2;TOPIC_3'            Topic name array.
+  -x 'TOKEN'                            GitHub user token.
+  -o 'OWNER'                            Repository owner (organization).
+  -r 'REPO_1;REPO_2;REPO_3'             Repository name array.
+  -t 'TOPIC_1;TOPIC_2;TOPIC_3'          Topic name array.
 EOF
 
 # -------------------------------------------------------------------------------------------------------------------- #
