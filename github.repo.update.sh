@@ -70,22 +70,32 @@ shift $(( OPTIND - 1 ))
 (( ! ${#repos[@]} )) || [[ -z "${owner}" ]] && exit 1
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# -----------------------------------------------------< SCRIPT >----------------------------------------------------- #
+# INITIALIZATION.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-[[ -n "${private}" ]] && private="true" || private="false"
-[[ -n "${has_issues}" ]] && has_issues="true" || has_issues="false"
-[[ -n "${has_projects}" ]] && has_projects="true" || has_projects="false"
-[[ -n "${has_wiki}" ]] && has_wiki="true" || has_wiki="false"
+init() {
+  # Run.
+  repo_update
+}
 
-for repo in "${repos[@]}"; do
-  echo "" && echo "--- OPEN: '${repo}'"
+# -------------------------------------------------------------------------------------------------------------------- #
+# GITHUB: UPDATE REPOSITORY.
+# -------------------------------------------------------------------------------------------------------------------- #
 
-  ${curl} -X PATCH \
-    -H "Authorization: Bearer ${token}" \
-    -H "Accept: application/vnd.github+json" \
-    "https://api.github.com/repos/${owner}/${repo}" \
-    -d @- << EOF
+repo_update() {
+  [[ -n "${private}" ]] && private="true" || private="false"
+  [[ -n "${has_issues}" ]] && has_issues="true" || has_issues="false"
+  [[ -n "${has_projects}" ]] && has_projects="true" || has_projects="false"
+  [[ -n "${has_wiki}" ]] && has_wiki="true" || has_wiki="false"
+
+  for repo in "${repos[@]}"; do
+    echo "" && echo "--- OPEN: '${repo}'"
+
+    ${curl} -X PATCH \
+      -H "Authorization: Bearer ${token}" \
+      -H "Accept: application/vnd.github+json" \
+      "https://api.github.com/repos/${owner}/${repo}" \
+      -d @- << EOF
 {
   "name": "${repo}",
   "description": "${description}",
@@ -97,13 +107,14 @@ for repo in "${repos[@]}"; do
 }
 EOF
 
-  echo "" && echo "--- DONE: '${repo}'" && echo ""
+    echo "" && echo "--- DONE: '${repo}'" && echo ""
 
-  sleep ${sleep}
-done
+    sleep ${sleep}
+  done
+}
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# Exit.
+# -------------------------------------------------< INIT FUNCTIONS >------------------------------------------------- #
 # -------------------------------------------------------------------------------------------------------------------- #
 
-exit 0
+init "$@"; exit 0

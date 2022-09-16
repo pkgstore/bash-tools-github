@@ -78,23 +78,33 @@ shift $(( OPTIND - 1 ))
 (( ! ${#repos[@]} )) || [[ -z "${org}" ]] && exit 1
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# -----------------------------------------------------< SCRIPT >----------------------------------------------------- #
+# INITIALIZATION.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-[[ -n "${private}" ]] && private="true" || private="false"
-[[ -n "${has_issues}" ]] && has_issues="true" || has_issues="false"
-[[ -n "${has_projects}" ]] && has_projects="true" || has_projects="false"
-[[ -n "${has_wiki}" ]] && has_wiki="true" || has_wiki="false"
-[[ -n "${auto_init}" ]] && auto_init="true" || auto_init="false"
+init() {
+  # Run.
+  repo_create
+}
 
-for repo in "${repos[@]}"; do
-  echo "" && echo "--- OPEN: '${repo}'"
+# -------------------------------------------------------------------------------------------------------------------- #
+# GITHUB: CREATE REPOSITORY.
+# -------------------------------------------------------------------------------------------------------------------- #
 
-  ${curl} -X POST \
-    -H "Authorization: Bearer ${token}" \
-    -H "Accept: application/vnd.github+json" \
-    "https://api.github.com/orgs/${org}/repos" \
-    -d @- << EOF
+repo_create() {
+  [[ -n "${private}" ]] && private="true" || private="false"
+  [[ -n "${has_issues}" ]] && has_issues="true" || has_issues="false"
+  [[ -n "${has_projects}" ]] && has_projects="true" || has_projects="false"
+  [[ -n "${has_wiki}" ]] && has_wiki="true" || has_wiki="false"
+  [[ -n "${auto_init}" ]] && auto_init="true" || auto_init="false"
+
+  for repo in "${repos[@]}"; do
+    echo "" && echo "--- OPEN: '${repo}'"
+
+    ${curl} -X POST \
+      -H "Authorization: Bearer ${token}" \
+      -H "Accept: application/vnd.github+json" \
+      "https://api.github.com/orgs/${org}/repos" \
+      -d @- << EOF
 {
   "name": "${repo}",
   "description": "${description}",
@@ -108,13 +118,14 @@ for repo in "${repos[@]}"; do
 }
 EOF
 
-  echo "" && echo "--- DONE: '${repo}'" && echo ""
+    echo "" && echo "--- DONE: '${repo}'" && echo ""
 
-  sleep ${sleep}
-done
+    sleep ${sleep}
+  done
+}
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# ------------------------------------------------------< EXIT >------------------------------------------------------ #
+# -------------------------------------------------< INIT FUNCTIONS >------------------------------------------------- #
 # -------------------------------------------------------------------------------------------------------------------- #
 
-exit 0
+init "$@"; exit 0
