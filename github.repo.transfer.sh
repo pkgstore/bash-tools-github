@@ -70,15 +70,9 @@ repo_transfer() {
       -H "Authorization: Bearer ${token}" \
       -H "Accept: application/vnd.github+json" \
       "https://api.github.com/repos/${owner_old}/${repo}/transfer" \
-      -d @- << EOF
-{
-  "new_owner": "${owner_new}"
-}
-EOF
+      -d "{\"new_owner\":\"${owner_new}\"}"
 
-    echo "" && echo "--- DONE: '${repo}'" && echo ""
-
-    sleep ${sleep}
+    echo "" && echo "--- DONE: '${repo}'" && echo ""; sleep ${sleep}
   done
 }
 

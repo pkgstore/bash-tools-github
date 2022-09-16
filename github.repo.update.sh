@@ -107,9 +107,7 @@ repo_update() {
 }
 EOF
 
-    echo "" && echo "--- DONE: '${repo}'" && echo ""
-
-    sleep ${sleep}
+    echo "" && echo "--- DONE: '${repo}'" && echo ""; sleep ${sleep}
   done
 }
 

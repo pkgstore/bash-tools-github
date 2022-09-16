@@ -72,15 +72,9 @@ repo_topics() {
       -H "Authorization: token ${token}" \
       -H "Accept: application/vnd.github.mercy-preview+json" \
       "https://api.github.com/repos/${owner}/${repo}/topics" \
-      -d @- << EOF
-{
-  "names": [ ${topic:1} ]
-}
-EOF
+      -d "{\"names\":[${topic:1}]}"
 
-    echo "" && echo "--- DONE: '${repo}'" && echo ""
-
-    sleep ${sleep}
+    echo "" && echo "--- DONE: '${repo}'" && echo ""; sleep ${sleep}
   done
 }
 

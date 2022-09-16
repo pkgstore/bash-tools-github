@@ -67,9 +67,7 @@ repo_remove() {
       -H "Accept: application/vnd.github+json" \
       "https://api.github.com/repos/${org}/${repo}"
 
-    echo "" && echo "--- DONE: '${repo}'" && echo ""
-
-    sleep ${sleep}
+    echo "" && echo "--- DONE: '${repo}'" && echo ""; sleep ${sleep}
   done
 }
 

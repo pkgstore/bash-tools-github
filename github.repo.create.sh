@@ -120,9 +120,7 @@ repo_create() {
 }
 EOF
 
-    echo "" && echo "--- DONE: '${repo}'" && echo ""
-
-    sleep ${sleep}
+    echo "" && echo "--- DONE: '${repo}'" && echo ""; sleep ${sleep}
   done
 }
 
