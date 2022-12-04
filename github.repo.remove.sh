@@ -23,9 +23,9 @@ EOF
 
 OPTIND=1
 
-while getopts "t:o:r:h" opt; do
+while getopts "x:o:r:h" opt; do
   case ${opt} in
-    t)
+    x)
       token="${OPTARG}"
       ;;
     o)
@@ -50,7 +50,6 @@ shift $(( OPTIND - 1 ))
 # -------------------------------------------------------------------------------------------------------------------- #
 
 init() {
-  # Run.
   repo_remove
 }
 
